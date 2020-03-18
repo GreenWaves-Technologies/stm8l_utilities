@@ -1,0 +1,12 @@
+;	STMicroelectronics Workspace file
+
+[Version]
+Keyword=ST7Workspace-V0.7
+
+[Project0]
+Filename=gap_sleep.stp
+Dependencies=
+[Options]
+ActiveProject=gap_sleep
+ActiveConfig=Debug
+AddSortedElements=1
