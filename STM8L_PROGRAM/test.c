@@ -10,8 +10,7 @@
 
 #define BIT_STREAM_SIZE 1000
 
-#define GPIO_NUMBER 1
-#define GPIO_MASK   2
+#define GPIO_NUMBER 3
 
 #define VERBOSE     1
 
@@ -80,17 +79,17 @@ void enter_SWIM()
   {
     bit_stream[i] = 0;
     bit_stream[i+1] = 0;    
-    bit_stream[i+2] = 2;
-    bit_stream[i+3] = 2; 
+    bit_stream[i+2] = 1;
+    bit_stream[i+3] = 1; 
   }
   for (int i=16;i<25;i=i+2)
   {
     bit_stream[i] = 0;
-    bit_stream[i+1] = 2;    
+    bit_stream[i+1] = 1;    
   }
 
   hal_gpio_padout_set(0);
-  hal_gpio_paddir_set(2);
+  hal_gpio_paddir_set(1<<GPIO_NUMBER);
   rt_time_wait_us(1000);
 
 
@@ -101,7 +100,7 @@ void enter_SWIM()
   {
     eu_evt_waitAndClr();
     //hal_gpio_padout_set(bit_stream[i]);
-    hal_gpio_paddir_set(bit_stream[i]);
+    hal_gpio_paddir_set(bit_stream[i]<<GPIO_NUMBER);
   }
   hal_gpio_paddir_set(0);
   eu_evt_maskClr(1<<10);
@@ -116,14 +115,14 @@ void prepare_bit_SWIM_HS(uint32_t bit_index, uint8_t* bit_array, uint8_t value) 
   if (value == 0)
   {
     for (int i=index;i<index+8;i++)
-      bit_array[i]=2;
+      bit_array[i]=1;
     bit_array[index+8]=0;
     bit_array[index+9]=0;  
   }
   else if (value ==1)
   {
-    bit_array[index]=2;
-    bit_array[index+1]=2;
+    bit_array[index]=1;
+    bit_array[index+1]=1;
     for (int i=index+2;i<index+10;i++)
       bit_array[i]=0;
   } 
@@ -144,14 +143,14 @@ void prepare_bit_SWIM(uint32_t bit_index, uint8_t* bit_array, uint8_t value)
   if (value == 0)
   {
     for (int i=index;i<index+20;i++)
-      bit_array[i]=2;
+      bit_array[i]=1;
     bit_array[index+20]=0;
     bit_array[index+21]=0;  
   }
   else if (value ==1)
   {
-    bit_array[index]=2;
-    bit_array[index+1]=2;
+    bit_array[index]=1;
+    bit_array[index+1]=1;
     for (int i=index+2;i<index+22;i++)
       bit_array[i]=0;
   } 
@@ -256,7 +255,7 @@ void send_WOTF(uint8_t* bit_array, uint32_t address, uint8_t number_of_bytes, ui
   for (int i=0; i<stream_length; i++)
   {
     eu_evt_waitAndClr();
-    hal_gpio_paddir_set(bit_array[i]);
+    hal_gpio_paddir_set(bit_array[i]<<GPIO_NUMBER);
   }
 
   eu_evt_maskClr(1<<10);
@@ -273,7 +272,7 @@ void send_SWRST(uint8_t* bit_array)
   for (int i=0; i<110; i++)
   {
     eu_evt_waitAndClr();
-    hal_gpio_paddir_set(bit_array[i]);
+    hal_gpio_paddir_set(bit_array[i]<<GPIO_NUMBER);
   }
 
   eu_evt_maskClr(1<<10);
@@ -295,7 +294,7 @@ void RESET_COMM()
   for (int i=0; i<128; i++)
   {
     eu_evt_waitAndClr();
-    hal_gpio_paddir_set(2);
+    hal_gpio_paddir_set(1<<GPIO_NUMBER);
   }
   
   hal_gpio_paddir_set(0);   //SWITCH TO INPUT
@@ -322,7 +321,7 @@ uint8_t read_REG_RAW(uint8_t* bit_array, uint32_t address, uint8_t* data)
   for (int i=0; i<50*22; i++)
   {
     eu_evt_waitAndClr();
-    hal_gpio_paddir_set(bit_array[i]);
+    hal_gpio_paddir_set(bit_array[i]<<GPIO_NUMBER);
   }
   
 
@@ -392,7 +391,7 @@ uint8_t read_REG_RAW(uint8_t* bit_array, uint32_t address, uint8_t* data)
 
   //SEND ACK 
   eu_evt_waitAndClr();
-  hal_gpio_paddir_set(2);
+  hal_gpio_paddir_set(1<<GPIO_NUMBER);
   eu_evt_waitAndClr();
   eu_evt_waitAndClr();
   eu_evt_waitAndClr();
@@ -537,17 +536,17 @@ int program_FLASH()
 
 void init_board()
 {
-  rt_pad_set_function(1,1) ;   
-  rt_gpio_init(1, 0);            
-  rt_pad_set_function(23,0) ;            
-  rt_pad_set_function(27,0) ;             
+  rt_pad_set_function(7,1) ;   
+  rt_gpio_init(3, 0);            
+  //rt_pad_set_function(26,0) ;            
+  //rt_pad_set_function(41,0) ;             
 
-  hal_gpio_padout_set(2);
+  hal_gpio_padout_set(0);
 
-  pulp_write32(0x1A101020,0x02020202);
-  pulp_write32(0x1A10101C,0x00000002);
 
-  hal_gpio_paddir_set(0); 
+  pulp_write32(0x1A10101C,1<<GPIO_NUMBER);
+
+  hal_gpio_paddir_set(1<<GPIO_NUMBER); 
 }
 
 
@@ -565,6 +564,7 @@ void SWIM_init_sequence()
 
   while((data&&0xFD)!=(data_read&&0xFD))    //CAN READ 0xA0 or 0xA2
   {
+
     RESET_COMM();
     write_REG(bit_stream, SWIM_CSR, &data);
 
@@ -576,7 +576,8 @@ void SWIM_init_sequence()
 #endif
   }
   //SW RESET
-   send_SWRST(bit_stream);  
+   send_SWRST(bit_stream); 
+    
  
 }
 
@@ -616,13 +617,23 @@ void reboot_STM8L()
 int main()
 {
 
-
+#ifdef VERBOSE
+  printf("INIT BOARD\n");
+#endif 
   init_board();
 
+
+#ifdef VERBOSE
+  printf("INIT SWIM\n");
+#endif 
   SWIM_init_sequence();
 
   delay_ms(10);
+   
 
+#ifdef VERBOSE
+  printf("UNLOCK MASS PROGRAM\n");
+#endif 
   unlock_MASS_PROGRAM();
   
   delay_ms(10);

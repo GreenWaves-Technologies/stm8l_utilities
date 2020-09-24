@@ -120,6 +120,7 @@ INTERRUPT_HANDLER(RTC_CSSLSE_IRQHandler,4)
 	wake_me_up=1;
   RTC_ClearITPendingBit(RTC_IT_ALRA);
 	RTC_ClearITPendingBit(RTC_IT_WUT);
+	RTC_WakeUpCmd(DISABLE);
 }
 /**
   * @brief External IT PORTE/F and PVD Interrupt routine.

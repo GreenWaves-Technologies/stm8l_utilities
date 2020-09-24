@@ -34,6 +34,9 @@ uint8_t bit_count=0;
 uint16_t ADCData=0;
 uint8_t temp=0;
 uint8_t glitch = 0;
+uint8_t calib_on = 0;
+uint16_t RTC_calib = 16384;
+uint32_t calib_temp;
 
 
 static void Delay_ms(uint8_t del_ms)
@@ -67,8 +70,8 @@ void Calendar_Init(void)
 {
   
 	RTC_InitStr.RTC_HourFormat = RTC_HourFormat_24;
-  RTC_InitStr.RTC_AsynchPrediv = 0x7F;
-  RTC_InitStr.RTC_SynchPrediv = 0x00FF;
+  RTC_InitStr.RTC_AsynchPrediv = 0x01;
+  RTC_InitStr.RTC_SynchPrediv = RTC_calib;
   RTC_Init(&RTC_InitStr);
 
   RTC_DateStructInit(&RTC_DateStr);
@@ -136,6 +139,7 @@ void Alarm_Read(void)
 
 static void RTC_Config(void)
 {
+
 	#ifdef USE_LSE
 		/* Enable RTC clock */
 		CLK_RTCClockConfig(CLK_RTCCLKSource_LSE, CLK_RTCCLKDiv_1);
@@ -158,8 +162,9 @@ static void RTC_Config(void)
 	
 		CLK_PeripheralClockConfig(CLK_Peripheral_RTC, ENABLE);
 	#endif
+
 }
-	
+
 static void RTC_Config_WakeUp(uint8_t RTC_WakeUpClock)
 {
 	assert_param(IS_RTC_WAKEUP_CLOCK(RTC_WakeUpClock));
@@ -257,7 +262,9 @@ void fetch_command(void)
 			break;
 		case Set_Wake_Up: 
 			RTC_Config_WakeUp(command[1]>>2);
-			WU_counter = (uint16_t)command[2]<<8+(uint16_t)command[3] + (((uint8_t)command[1])&&0x02)<<7 + (((uint8_t)command[1])&&0x01);
+			calib_temp = ((uint16_t)command[2]<<8) + (uint16_t)command[3] + ((((uint16_t)command[1])&0x02)<<7) + (((uint16_t)command[1])&0x01);
+			calib_temp = calib_temp*RTC_calib;
+			WU_counter = calib_temp/16384;
 			RTC_SetWakeUpCounter(WU_counter);		
 			RTC_WakeUpCmd(ENABLE);
 			break;
@@ -286,6 +293,7 @@ void fetch_command(void)
 			break;
 		case Shutdown_Now: 
 			// SHUTDOWN GAP
+			GPIO_Init(GPIO_DATA_PORT, GPIO_DATA_PIN, GPIO_Mode_In_FL_No_IT);
 			GPIO_ResetBits(GPIO_SYS_SW_PORT, GPIO_SYS_SW_PIN);
 			#ifdef HALT_STM8L
 				halt();
@@ -308,6 +316,25 @@ void fetch_command(void)
 		  while (GPIO_ReadInputDataBit(GPIO_DATA_PORT, GPIO_DATA_PIN)==1);
 			enableInterrupts();
 		break;
+		case Set_CalibRoutine:
+			RTC_Config_WakeUp(command[1]>>2);
+			WU_counter = ((uint16_t)command[2]<<8) + (uint16_t)command[3] + ((((uint16_t)command[1])&0x02)<<7) + (((uint16_t)command[1])&0x01);
+			RTC_SetWakeUpCounter(WU_counter);		
+		break;
+		case Start_CalibRoutine:
+			calib_on=1;
+			GPIO_Init(GPIO_DATA_PORT, GPIO_DATA_PIN, GPIO_Mode_Out_PP_High_Fast);
+			RTC_WakeUpCmd(ENABLE);
+			GPIO_ResetBits(GPIO_DATA_PORT, GPIO_DATA_PIN);
+		break;
+		case Set_CalibData:
+			RTC_calib = ((uint16_t)command[2]<<8) + (uint16_t)command[3] + ((((uint16_t)command[1])&0x02)<<7) + (((uint16_t)command[1])&0x01);
+			RTC_InitStr.RTC_HourFormat = RTC_HourFormat_24;
+			RTC_InitStr.RTC_AsynchPrediv = 0x01;
+			RTC_InitStr.RTC_SynchPrediv = RTC_calib;
+			RTC_Init(&RTC_InitStr);
+		break;
+		
 		//READ COMMANDS
 		case Get_Calendar:
 			Calendar_Read();
@@ -453,6 +480,13 @@ main()
 		{
 			wake_me_up=0;
 			GPIO_SetBits(GPIO_SYS_SW_PORT, GPIO_SYS_SW_PIN);
+			if(calib_on==1){
+				calib_on=0;
+				GPIO_SetBits(GPIO_DATA_PORT, GPIO_DATA_PIN);
+				Delay_ms(1);
+				GPIO_ResetBits(GPIO_DATA_PORT, GPIO_DATA_PIN);
+				GPIO_Init(GPIO_DATA_PORT, GPIO_DATA_PIN, GPIO_Mode_In_FL_No_IT);
+			}
 		}
 		if(glitch==1)
 		{

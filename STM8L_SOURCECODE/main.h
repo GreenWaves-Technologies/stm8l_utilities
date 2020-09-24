@@ -28,6 +28,10 @@
 		Shutdown_Now = (uint8_t)0x0C,
 		WakeUp_Rising_Edge = (uint8_t)0x0D,
 		WakeUp_Falling_Edge = (uint8_t)0x0E,
+		Calibrate_1sec = (uint8_t)0x0F,
+		Set_CalibRoutine = (uint8_t)0x10,
+		Start_CalibRoutine = (uint8_t)0x11,
+		Set_CalibData = (uint8_t)0x12,
 		Reset_Interface = (uint8_t)0xFF, 
 		//READ COMMANDS
 		Get_Calendar = (uint8_t)0x40,

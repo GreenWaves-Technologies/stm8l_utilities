@@ -159,7 +159,7 @@ ADC_LTRL_RESET_VALUE	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2341;"	macro
 ADC_Prescaler_1	stm8l15x_stdperiph_driver\inc\stm8l15x_adc.h	141;"	enumerator	enum:__anon9
 ADC_Prescaler_2	stm8l15x_stdperiph_driver\inc\stm8l15x_adc.h	142;"	enumerator	enum:__anon9
 ADC_Prescaler_TypeDef	stm8l15x_stdperiph_driver\inc\stm8l15x_adc.h	143;"	typedef	typeref:enum:__anon9
-ADC_Read	main.c	200;"	function	signature:(void)
+ADC_Read	main.c	205;"	function	signature:(void)
 ADC_Resolution_10Bit	stm8l15x_stdperiph_driver\inc\stm8l15x_adc.h	123;"	enumerator	enum:__anon8
 ADC_Resolution_12Bit	stm8l15x_stdperiph_driver\inc\stm8l15x_adc.h	122;"	enumerator	enum:__anon8
 ADC_Resolution_6Bit	stm8l15x_stdperiph_driver\inc\stm8l15x_adc.h	125;"	enumerator	enum:__anon8
@@ -287,8 +287,8 @@ ARRL	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1975;"	member	struct:TIM_struct
 ASCR1	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1478;"	member	struct:RI_struct
 ASCR2	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1479;"	member	struct:RI_struct
 AffBit	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2984;"	macro
-Alarm_Init	main.c	102;"	function	signature:(void)
-Alarm_Read	main.c	126;"	function	signature:(void)
+Alarm_Init	main.c	105;"	function	signature:(void)
+Alarm_Read	main.c	129;"	function	signature:(void)
 BAT	main.c	29;"	variable
 BEEP	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2866;"	macro
 BEEP_BASE	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2816;"	macro
@@ -445,7 +445,7 @@ CLK_ClockSecuritySystemEnable	stm8l15x_stdperiph_driver\inc\stm8l15x_clk.h	402;"
 CLK_ClockSecuritySystemEnable	stm8l15x_stdperiph_driver\src\stm8l15x_clk.c	306;"	function	signature:(void)
 CLK_ClockSecuritySytemDeglitchCmd	stm8l15x_stdperiph_driver\inc\stm8l15x_clk.h	403;"	prototype	signature:(FunctionalState NewState)
 CLK_ClockSecuritySytemDeglitchCmd	stm8l15x_stdperiph_driver\src\stm8l15x_clk.c	317;"	function	signature:(FunctionalState NewState)
-CLK_Config	main.c	358;"	function	file:	signature:(void)
+CLK_Config	main.c	386;"	function	file:	signature:(void)
 CLK_DeInit	stm8l15x_stdperiph_driver\inc\stm8l15x_clk.h	394;"	prototype	signature:(void)
 CLK_DeInit	stm8l15x_stdperiph_driver\src\stm8l15x_clk.c	120;"	function	signature:(void)
 CLK_ECKCR_HSEBYP	stm8l15x_stdperiph_driver\inc\stm8l15x.h	823;"	macro
@@ -812,8 +812,9 @@ CSSLSE_CSR_SWITCHF	stm8l15x_stdperiph_driver\inc\stm8l15x.h	589;"	macro
 CSSLSE_TypeDef	stm8l15x_stdperiph_driver\inc\stm8l15x.h	573;"	typedef	typeref:struct:CSSLSE_struct
 CSSLSE_struct	stm8l15x_stdperiph_driver\inc\stm8l15x.h	569;"	struct
 CSSR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	743;"	member	struct:CLK_struct
-Calendar_Init	main.c	66;"	function	signature:(void)
-Calendar_Read	main.c	88;"	function	signature:(void)
+Calendar_Init	main.c	69;"	function	signature:(void)
+Calendar_Read	main.c	91;"	function	signature:(void)
+Calibrate_1sec	main.h	31;"	enumerator	enum:__anon1
 ChgBit	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2983;"	macro
 ClrBit	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2981;"	macro
 DAC	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2881;"	macro
@@ -1103,8 +1104,8 @@ DRH	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2318;"	member	struct:ADC_struct
 DRL	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2319;"	member	struct:ADC_struct
 DTR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1754;"	member	struct:TIM1_struct
 DUKR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1026;"	member	struct:FLASH_struct
-Delay_10ms	main.c	50;"	function	file:	signature:(uint8_t del_ms)
-Delay_ms	main.c	39;"	function	file:	signature:(uint8_t del_ms)
+Delay_10ms	main.c	53;"	function	file:	signature:(uint8_t del_ms)
+Delay_ms	main.c	42;"	function	file:	signature:(uint8_t del_ms)
 ECKCR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	739;"	member	struct:CLK_struct
 EEPROM	stm8l15x_stdperiph_driver\inc\stm8l15x.h	134;"	macro
 EEPROM	stm8l15x_stdperiph_driver\inc\stm8l15x.h	140;"	macro
@@ -1457,19 +1458,18 @@ GPIO_WriteBit	stm8l15x_stdperiph_driver\inc\stm8l15x_gpio.h	160;"	prototype	sign
 GPIO_WriteBit	stm8l15x_stdperiph_driver\src\stm8l15x_gpio.c	270;"	function	signature:(GPIO_TypeDef* GPIOx, GPIO_Pin_TypeDef GPIO_Pin, BitAction GPIO_BitVal)
 GPIO_struct	stm8l15x_stdperiph_driver\inc\stm8l15x.h	277;"	struct
 GTR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2232;"	member	struct:USART_struct
-Get_Alarm	main.h	34;"	enumerator	enum:__anon1
-Get_Battery_Voltage	main.h	44;"	enumerator	enum:__anon1
-Get_Calendar	main.h	33;"	enumerator	enum:__anon1
-Get_Day	main.h	38;"	enumerator	enum:__anon1
-Get_Hour	main.h	40;"	enumerator	enum:__anon1
-Get_Minute	main.h	41;"	enumerator	enum:__anon1
-Get_Month	main.h	37;"	enumerator	enum:__anon1
-Get_Seconds	main.h	42;"	enumerator	enum:__anon1
-Get_SubSeconds	main.h	43;"	enumerator	enum:__anon1
-Get_WD	main.h	39;"	enumerator	enum:__anon1
-Get_Wake_Up	main.h	35;"	enumerator	enum:__anon1
-Get_Year	main.h	36;"	enumerator	enum:__anon1
-HALT_STM8L	main.c	13;"	macro	file:
+Get_Alarm	main.h	38;"	enumerator	enum:__anon1
+Get_Battery_Voltage	main.h	48;"	enumerator	enum:__anon1
+Get_Calendar	main.h	37;"	enumerator	enum:__anon1
+Get_Day	main.h	42;"	enumerator	enum:__anon1
+Get_Hour	main.h	44;"	enumerator	enum:__anon1
+Get_Minute	main.h	45;"	enumerator	enum:__anon1
+Get_Month	main.h	41;"	enumerator	enum:__anon1
+Get_Seconds	main.h	46;"	enumerator	enum:__anon1
+Get_SubSeconds	main.h	47;"	enumerator	enum:__anon1
+Get_WD	main.h	43;"	enumerator	enum:__anon1
+Get_Wake_Up	main.h	39;"	enumerator	enum:__anon1
+Get_Year	main.h	40;"	enumerator	enum:__anon1
 HSE_VALUE	stm8l15x_stdperiph_driver\inc\stm8l15x.h	110;"	macro
 HSICALR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	745;"	member	struct:CLK_struct
 HSITRIMR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	746;"	member	struct:CLK_struct
@@ -2506,7 +2506,7 @@ PWR_UltraLowPowerCmd	stm8l15x_stdperiph_driver\src\stm8l15x_pwr.c	194;"	function
 PWR_struct	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1420;"	struct
 PointerAttr	stm8l15x_stdperiph_driver\inc\stm8l15x.h	166;"	macro
 PointerAttr	stm8l15x_stdperiph_driver\inc\stm8l15x.h	170;"	macro
-Power_SW_Toggle	main.c	238;"	function	signature:(uint8_t value)
+Power_SW_Toggle	main.c	243;"	function	signature:(uint8_t value)
 RAM	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2689;"	member	struct:LCD_struct
 RCR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1480;"	member	struct:RI_struct
 RCR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1744;"	member	struct:TIM1_struct
@@ -2877,7 +2877,7 @@ RTC_CALRH_CALWx	stm8l15x_stdperiph_driver\inc\stm8l15x.h	535;"	macro
 RTC_CALRH_RESET_VALUE	stm8l15x_stdperiph_driver\inc\stm8l15x.h	407;"	macro
 RTC_CALRL_CALM	stm8l15x_stdperiph_driver\inc\stm8l15x.h	539;"	macro
 RTC_CALRL_RESET_VALUE	stm8l15x_stdperiph_driver\inc\stm8l15x.h	408;"	macro
-RTC_CLK_Config	main.c	370;"	function	file:	signature:(void)
+RTC_CLK_Config	main.c	398;"	function	file:	signature:(void)
 RTC_CR1_BYPSHAD	stm8l15x_stdperiph_driver\inc\stm8l15x.h	451;"	macro
 RTC_CR1_FMT	stm8l15x_stdperiph_driver\inc\stm8l15x.h	448;"	macro
 RTC_CR1_RATIO	stm8l15x_stdperiph_driver\inc\stm8l15x.h	449;"	macro
@@ -2909,8 +2909,8 @@ RTC_ClearFlag	stm8l15x_stdperiph_driver\inc\stm8l15x_rtc.h	942;"	prototype	signa
 RTC_ClearFlag	stm8l15x_stdperiph_driver\src\stm8l15x_rtc.c	2122;"	function	signature:(RTC_Flag_TypeDef RTC_FLAG)
 RTC_ClearITPendingBit	stm8l15x_stdperiph_driver\inc\stm8l15x_rtc.h	944;"	prototype	signature:(RTC_IT_TypeDef RTC_IT)
 RTC_ClearITPendingBit	stm8l15x_stdperiph_driver\src\stm8l15x_rtc.c	2172;"	function	signature:(RTC_IT_TypeDef RTC_IT)
-RTC_Config	main.c	137;"	function	file:	signature:(void)
-RTC_Config_WakeUp	main.c	163;"	function	file:	signature:(uint8_t RTC_WakeUpClock)
+RTC_Config	main.c	140;"	function	file:	signature:(void)
+RTC_Config_WakeUp	main.c	168;"	function	file:	signature:(uint8_t RTC_WakeUpClock)
 RTC_DR1_DT	stm8l15x_stdperiph_driver\inc\stm8l15x.h	435;"	macro
 RTC_DR1_DU	stm8l15x_stdperiph_driver\inc\stm8l15x.h	436;"	macro
 RTC_DR1_RESET_VALUE	stm8l15x_stdperiph_driver\inc\stm8l15x.h	375;"	macro
@@ -3166,10 +3166,11 @@ RTC_Weekday_Wednesday	stm8l15x_stdperiph_driver\inc\stm8l15x_rtc.h	55;"	enumerat
 RTC_WriteProtectionCmd	stm8l15x_stdperiph_driver\inc\stm8l15x_rtc.h	878;"	prototype	signature:(FunctionalState NewState)
 RTC_WriteProtectionCmd	stm8l15x_stdperiph_driver\src\stm8l15x_rtc.c	430;"	function	signature:(FunctionalState NewState)
 RTC_Year	stm8l15x_stdperiph_driver\inc\stm8l15x_rtc.h	537;"	member	struct:__anon133
+RTC_calib	main.c	38;"	variable
 RTC_struct	stm8l15x_stdperiph_driver\inc\stm8l15x.h	302;"	struct
 RXCRCR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1657;"	member	struct:SPI_struct
 Read_Battery	main.h	27;"	enumerator	enum:__anon1
-Reset_Interface	main.h	31;"	enumerator	enum:__anon1
+Reset_Interface	main.h	35;"	enumerator	enum:__anon1
 S16_MAX	stm8l15x_stdperiph_driver\inc\stm8l15x.h	255;"	macro
 S16_MIN	stm8l15x_stdperiph_driver\inc\stm8l15x.h	256;"	macro
 S32_MAX	stm8l15x_stdperiph_driver\inc\stm8l15x.h	258;"	macro
@@ -3338,7 +3339,7 @@ SR3	stm8l15x_stdperiph_driver\inc\stm8l15x.h	1090;"	member	struct:I2C_struct
 SSRH	stm8l15x_stdperiph_driver\inc\stm8l15x.h	339;"	member	struct:RTC_struct
 SSRL	stm8l15x_stdperiph_driver\inc\stm8l15x.h	340;"	member	struct:RTC_struct
 STM8L05X_LD_VL	stm8l15x_stdperiph_driver\inc\stm8l15x.h	43;"	macro
-STM8L_Functions	main.h	45;"	typedef	typeref:enum:__anon1
+STM8L_Functions	main.h	49;"	typedef	typeref:enum:__anon1
 STRINGVECTOR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2949;"	macro
 SUCCESS	stm8l15x_stdperiph_driver\inc\stm8l15x.h	249;"	enumerator	enum:__anon5
 SWCR	stm8l15x_stdperiph_driver\inc\stm8l15x.h	742;"	member	struct:CLK_struct
@@ -3392,6 +3393,8 @@ SYSDivFactor	stm8l15x_stdperiph_driver\src\stm8l15x_clk.c	74;"	variable
 SetBit	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2980;"	macro
 Set_Alarm	main.h	17;"	enumerator	enum:__anon1
 Set_Calendar	main.h	16;"	enumerator	enum:__anon1
+Set_CalibData	main.h	34;"	enumerator	enum:__anon1
+Set_CalibRoutine	main.h	32;"	enumerator	enum:__anon1
 Set_Day	main.h	21;"	enumerator	enum:__anon1
 Set_Hour	main.h	23;"	enumerator	enum:__anon1
 Set_Minute	main.h	24;"	enumerator	enum:__anon1
@@ -3402,6 +3405,7 @@ Set_WD	main.h	22;"	enumerator	enum:__anon1
 Set_Wake_Up	main.h	18;"	enumerator	enum:__anon1
 Set_Year	main.h	19;"	enumerator	enum:__anon1
 Shutdown_Now	main.h	28;"	enumerator	enum:__anon1
+Start_CalibRoutine	main.h	33;"	enumerator	enum:__anon1
 TCR1	stm8l15x_stdperiph_driver\inc\stm8l15x.h	363;"	member	struct:RTC_struct
 TCR2	stm8l15x_stdperiph_driver\inc\stm8l15x.h	364;"	member	struct:RTC_struct
 TEN_VALUE_BCD	stm8l15x_stdperiph_driver\src\stm8l15x_rtc.c	165;"	macro	file:
@@ -5227,7 +5231,7 @@ _RAISONANCE_	stm8l15x_stdperiph_driver\inc\stm8l15x.h	88;"	macro
 __CONST	stm8l15x_stdperiph_driver\inc\stm8l15x.h	161;"	macro
 __I	stm8l15x_stdperiph_driver\inc\stm8l15x.h	217;"	macro
 __IO	stm8l15x_stdperiph_driver\inc\stm8l15x.h	219;"	macro
-__MODS0__	..\..\..\..\..\program files (x86)\cosmic\fse_compilers\cxstm8\hstm8\mods0.h	11;"	macro
+__MODS0__	..\..\..\..\..\..\program files (x86)\cosmic\fse_compilers\cxstm8\hstm8\mods0.h	11;"	macro
 __O	stm8l15x_stdperiph_driver\inc\stm8l15x.h	218;"	macro
 __STM8L15X_STDPERIPH_VERSION	stm8l15x_stdperiph_driver\inc\stm8l15x.h	197;"	macro
 __STM8L15X_STDPERIPH_VERSION_MAIN	stm8l15x_stdperiph_driver\inc\stm8l15x.h	193;"	macro
@@ -5276,6 +5280,8 @@ bool	stm8l15x_stdperiph_driver\inc\stm8l15x.h	242;"	typedef	typeref:enum:__anon2
 byte_count	main.c	26;"	variable
 byte_read	main.c	23;"	variable
 bytes_to_read	main.c	27;"	variable
+calib_on	main.c	37;"	variable
+calib_temp	main.c	39;"	variable
 command	main.c	24;"	variable
 disableInterrupts	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2905;"	macro
 disableInterrupts	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2915;"	macro
@@ -5283,8 +5289,8 @@ disableInterrupts	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2926;"	macro
 enableInterrupts	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2904;"	macro
 enableInterrupts	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2914;"	macro
 enableInterrupts	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2925;"	macro
-fetch_byte	main.c	341;"	function	signature:(void)
-fetch_command	main.c	246;"	function	signature:(void)
+fetch_byte	main.c	369;"	function	signature:(void)
+fetch_command	main.c	251;"	function	signature:(void)
 glitch	main.c	36;"	variable
 halt	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2912;"	macro
 halt	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2922;"	macro
@@ -5296,7 +5302,7 @@ interrupt_handler	stm8_interrupt_vector.c	10;"	member	struct:interrupt_vector	fi
 interrupt_handler_t	stm8_interrupt_vector.c	6;"	typedef	file:
 interrupt_instruction	stm8_interrupt_vector.c	9;"	member	struct:interrupt_vector	file:
 interrupt_vector	stm8_interrupt_vector.c	8;"	struct	file:
-main	main.c	391;"	function
+main	main.c	419;"	function
 nop	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2908;"	macro
 nop	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2918;"	macro
 nop	stm8l15x_stdperiph_driver\inc\stm8l15x.h	2929;"	macro
