@@ -331,7 +331,7 @@ uint8_t read_REG_RAW(uint8_t* bit_array, uint32_t address, uint8_t* data)
   eu_evt_waitAndClr();
   while(((hal_gpio_padin_get(0)>>GPIO_NUMBER)&(0x01))==1);  //WAIT TILL STM8L CLAIMS THE LINE
 
-  for (int i=0; i<22; i++)  //FIRST BIT IS ALWAYS AT 1
+  for (volatile int i=0; i<22; i++)  //FIRST BIT IS ALWAYS AT 1
     eu_evt_waitAndClr();
 
   //READ BYTE
@@ -536,13 +536,13 @@ int program_FLASH()
 
 void init_board()
 {
-  rt_pad_set_function(7,1) ;   
-  rt_gpio_init(3, 0);            
+  rt_pad_set_function(GPIO_NUMBER+4,1) ;
+  
+  rt_gpio_init(0, GPIO_NUMBER);            
   //rt_pad_set_function(26,0) ;            
   //rt_pad_set_function(41,0) ;             
 
   hal_gpio_padout_set(0);
-
 
   pulp_write32(0x1A10101C,1<<GPIO_NUMBER);
 
@@ -562,7 +562,7 @@ void SWIM_init_sequence()
 
   delay_ms(10);
 
-  while((data&&0xFD)!=(data_read&&0xFD))    //CAN READ 0xA0 or 0xA2
+  while((data&0xFD)!=(data_read&0xFD))    //CAN READ 0xA0 or 0xA2
   {
 
     RESET_COMM();
@@ -572,7 +572,7 @@ void SWIM_init_sequence()
 
     read_REG(bit_stream, SWIM_CSR, &data_read);
 #ifdef VERBOSE
-    printf("CSR: %d\n", data_read);
+    printf("CSR: %d\n", data_read); //160 or 162
 #endif
   }
   //SW RESET
