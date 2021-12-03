@@ -8,9 +8,9 @@
 #include "stm8l050j3.h"
 #include "stm8l_data.h"
 
-#define BIT_STREAM_SIZE 1000
+#define BIT_STREAM_SIZE 1024
 
-#define GPIO_NUMBER 3
+#define GPIO_NUMBER 15
 
 #define VERBOSE     1
 
@@ -536,9 +536,17 @@ int program_FLASH()
 
 void init_board()
 {
-  rt_pad_set_function(GPIO_NUMBER+4,1) ;
+
+  //rt_pad_set_function(GPIO_NUMBER+4,1) ;
   
-  rt_gpio_init(0, GPIO_NUMBER);            
+  //rt_gpio_init(0, GPIO_NUMBER);            
+
+  pi_pad_set_function(PI_PAD_36_A15_I2S1_WS, PI_PAD_29_B34_GPIO_A15_FUNC1);
+  pi_gpio_pin_configure(0, PI_GPIO_A15_PAD_29_B34, PI_GPIO_OUTPUT);
+
+  rt_pad_set_function(7,1) ;   
+  rt_gpio_init(3, 0);            
+
   //rt_pad_set_function(26,0) ;            
   //rt_pad_set_function(41,0) ;             
 
